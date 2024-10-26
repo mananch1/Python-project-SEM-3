@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/static/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 15px;
+            background: linear-gradient(to right, #01013b, #011f88);
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            position: fixed;
+            left: 150px;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background: url('/static/logo.png') no-repeat center;
+            background-size: contain;
+            z-index: -1;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 2px solid whitesmoke;
+            background-color: transparent;
+            font-size: 18px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #022057;
+            border: none;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #043985;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            color: #f8f9fa;
+        }
+
+        .login-link a {
+            color: #3880ec;
+            text-decoration: underline;
+            font-size: 18px;
+        }
+
+        input::placeholder {
+            color: lightskyblue;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="logo"></div>
+    <div class="form-container">
+        <h2>Register</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('register') }}" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Create a password">
+            <label for="transaction_pin">Transaction PIN</label>
+            <input type="password" id="transaction_pin" name="transaction_pin" required placeholder="Set a transaction PIN">
+            <button type="submit">Register</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="{{ url_for('login') }}">Log In</a></p>
+    </div>
+</body>
+</html>
