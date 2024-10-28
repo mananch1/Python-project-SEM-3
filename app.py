@@ -51,7 +51,7 @@ def login():
 # Route for the registration page
 def generate_vid(length=10):
     """Generate a random unique VID."""
-    characters = string.ascii_letters + string.digits
+    characters = string.digits
     return ''.join(random.choice(characters) for _ in range(length))
 
 # Route for the registration page
@@ -185,16 +185,6 @@ def transaction_history():
     transactions = Transaction.query.filter_by(user_id=user_id).all()  # Fetch transactions for the logged-in user
     return render_template('transaction_history.html', transactions=transactions)
 
-
-# Route for password recovery page
-@app.route('/password_recovery', methods=['GET', 'POST'])
-def password_recovery():
-    if request.method == 'POST':
-        username = request.form['username']
-        # Implement password recovery logic here
-        flash('Password recovery instructions have been sent to your email.', 'success')
-        return redirect(url_for('login'))
-    return render_template('password_recovery.html')
 
 # Route for logging out
 @app.route('/logout')
